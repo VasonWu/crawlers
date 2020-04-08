@@ -3,6 +3,7 @@ import scrapy
 class AutohomeSpider(scrapy.Spider):
     base_url = "https://car.autohome.com.cn"
     name = "autohome"
+    # proxy = "http://127.0.0.1:1087"
     start_urls = [
         'https://car.autohome.com.cn/price/list-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-80.html'
     ]
@@ -11,10 +12,12 @@ class AutohomeSpider(scrapy.Spider):
         for brand in response.css("div.tab-content .list-cont"):
             brand_url = self.base_url + brand.css('.list-cont-main .main-title a::attr("href")').get()
             yield response.follow(brand_url, self.parse_brand)
+            # yield response.follow(brand_url, self.parse_brand, meta={"proxy": self.proxy})
 
         next_page_url = response.css('.page-item-next:not(.page-disabled)::attr("href")').get()
         if next_page_url is not None:
             yield response.follow(self.base_url + next_page_url, self.parse)
+            # yield response.follow(self.base_url + next_page_url, self.parse, meta={"proxy": self.proxy})
 
     def parse_brand(self, response):     
         cars = []

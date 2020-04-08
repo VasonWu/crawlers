@@ -8,7 +8,7 @@
 from scrapy import signals
 
 
-class AutohomeSpiderSpiderMiddleware(object):
+class MeijuSpiderSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -56,7 +56,7 @@ class AutohomeSpiderSpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class AutohomeSpiderDownloaderMiddleware(object):
+class MeijuSpiderDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
@@ -69,9 +69,6 @@ class AutohomeSpiderDownloaderMiddleware(object):
         return s
 
     def process_request(self, request, spider):
-        proxy = "http://127.0.0.11:1087"
-        request.meta["proxy"] = proxy
-        print(f"TestProxyMiddleware --> {proxy}")
         # Called for each request that goes through the downloader
         # middleware.
 
